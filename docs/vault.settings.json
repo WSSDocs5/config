@@ -1,0 +1,19 @@
+{
+  "Vault": {
+    "IsEnabled": true,
+    "Address": "https://vault-address:8200",
+
+    "MountPoint": "wssdocs",
+    "BasePaths": [
+		"Authentication",
+		"write-web-app-name"
+    ],
+
+    "Order": "Before JsonConfigurationSource",
+    "CheckConnectionOnStartup": true,
+
+    "AuthMethod": "AppRole",
+    "RoleId": "your-role-id",
+    "RoleSecretId": "your-role-secret-id"
+  }
+}

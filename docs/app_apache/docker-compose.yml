@@ -1,0 +1,26 @@
+version: '3'
+services:
+
+  docs:
+    image: ${wssdocs_image}
+    restart: unless-stopped
+    volumes:
+      - '/etc/ssl/certs:/etc/ssl/certs:ro'
+      - '../vault.settings.json:/app/vault.settings.json:ro'
+      - './appsettings.json:/app/appsettings.json:ro'
+      - '/var/wss/docs/aspnet:/root/.aspnet'
+
+  docs-proxy:
+    image: httpd
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - '/etc/ssl/certs:/etc/ssl/certs:ro'
+      - './httpd.conf:/usr/local/apache2/conf/httpd.conf:ro'
+      - './vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf:ro'
+      - './server.crt:/usr/local/apache2/conf/server.crt:ro'
+      - './server.key:/usr/local/apache2/conf/server.key:ro'
+    environment:
+      - TZ=UTC

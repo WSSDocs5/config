@@ -1,0 +1,14 @@
+version: "3"
+services:
+
+  dbms:
+    image: wssdocs/mssqlserver-fts:2019
+    restart: unless-stopped
+    ports:
+      - "1433:1433"
+    volumes:
+      - '/var/wss/mssqlserver/mssql:/var/opt/mssql'
+      - '/var/wss/mssqlserver/backup:/var/opt/backup'
+    environment:
+      MSSQL_SA_PASSWORD: 'CHANGEME'
+      ACCEPT_EULA: Y

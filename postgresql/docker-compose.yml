@@ -1,0 +1,12 @@
+version: '3'
+services:
+
+  dbms:
+    image: postgres
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    volumes:
+      - '/var/wss/postgresql/data:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_PASSWORD: 'CHANGEME'

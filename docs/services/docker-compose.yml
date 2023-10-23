@@ -1,0 +1,65 @@
+version: '3'
+services:
+
+  createdoc-service:
+    image: ${wssdocs_image}
+    restart: unless-stopped
+    volumes:
+      - '/etc/ssl/certs:/etc/ssl/certs:ro'
+      - '../vault.settings.json:/app/vault.settings.json:ro'
+      - '../default.appsettings.json:/app/appsettings.json:ro'
+    entrypoint: [ "dotnet", "WSSDocs.DMS.CreateDocService.dll" ]
+
+  reports-service:
+    image: ${wssdocs_image}
+    restart: unless-stopped
+    volumes:
+      - '/etc/ssl/certs:/etc/ssl/certs:ro'
+      - '../vault.settings.json:/app/vault.settings.json:ro'
+      - '../default.appsettings.json:/app/appsettings.json:ro'
+    entrypoint: [ "dotnet", "WSSDocs.DMS.Reports.Service.dll" ]
+
+  job-service:
+    image: ${wssdocs_image}
+    restart: unless-stopped
+    volumes:
+      - '/etc/ssl/certs:/etc/ssl/certs:ro'
+      - '../vault.settings.json:/app/vault.settings.json:ro'
+      - '../default.appsettings.json:/app/appsettings.json:ro'
+    entrypoint: [ "dotnet", "WSSDocs.SYS.DBFramework.JobService.dll" ]
+
+  preview-service:
+    image: ${wssdocs_image}
+    restart: unless-stopped
+    volumes:
+      - '/etc/ssl/certs:/etc/ssl/certs:ro'
+      - '../vault.settings.json:/app/vault.settings.json:ro'
+      - '../default.appsettings.json:/app/appsettings.json:ro'
+    entrypoint: [ "dotnet", "WSSDocs.SYS.Fields.Files.StoragePreviewService.dll" ]
+
+  conditionalaccess-service:
+    image: ${wssdocs_image}
+    restart: unless-stopped
+    volumes:
+      - '/etc/ssl/certs:/etc/ssl/certs:ro'
+      - '../vault.settings.json:/app/vault.settings.json:ro'
+      - '../default.appsettings.json:/app/appsettings.json:ro'
+    entrypoint: [ "dotnet", "WSSDocs.DMS.ConditionalAccess.Service.dll" ]
+
+  mailsender-service:
+    image: ${wssdocs_image}
+    restart: unless-stopped
+    volumes:
+      - '/etc/ssl/certs:/etc/ssl/certs:ro'
+      - '../vault.settings.json:/app/vault.settings.json:ro'
+      - '../default.appsettings.json:/app/appsettings.json:ro'
+    entrypoint: [ "dotnet", "WSSDocs.SYS.MailSender.Service.dll" ]
+
+  mailreader-service:
+    image: ${wssdocs_image}
+    restart: unless-stopped
+    volumes:
+      - '/etc/ssl/certs:/etc/ssl/certs:ro'
+      - '../vault.settings.json:/app/vault.settings.json:ro'
+      - '../default.appsettings.json:/app/appsettings.json:ro'
+    entrypoint: [ "dotnet", "WSSDocs.DMS.MailReader.Service.dll" ]

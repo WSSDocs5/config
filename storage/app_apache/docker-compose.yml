@@ -1,0 +1,22 @@
+version: '3'
+services:
+
+  storage:
+    image: images.wss-consulting.ru/wss/storage/develop:latest
+    restart: unless-stopped
+    volumes:
+      - '/etc/ssl/certs:/etc/ssl/certs:ro'
+      - './appsettings.json:/app/appsettings.json:ro'
+      - '/var/wss/storage/containers:/containers'
+
+  storage-proxy:
+    image: httpd
+    restart: unless-stopped
+    ports:
+      - '7000:80'
+    volumes:
+      - '/etc/ssl/certs:/etc/ssl/certs:ro'
+      - './httpd.conf:/usr/local/apache2/conf/httpd.conf:ro'
+      - './vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf:ro'
+    environment:
+      - TZ=UTC
